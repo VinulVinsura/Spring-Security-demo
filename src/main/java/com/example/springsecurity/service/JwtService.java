@@ -34,7 +34,6 @@ public class JwtService {
     }
     public <T> T extractClaims(String token , Function<Claims,T> resolver){
         Claims claims=extractAllClaims(token);
-
         return resolver.apply(claims);
     }
     public String extractUserName(String token){
