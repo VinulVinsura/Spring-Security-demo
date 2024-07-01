@@ -1,7 +1,7 @@
 package com.example.springsecurity.config;
 
 import com.example.springsecurity.service.JwtService;
-import com.example.springsecurity.service.UserServiceImpl;
+import com.example.springsecurity.service.AuthenticationService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserServiceImpl userService;
+    private final AuthenticationService authenticationService;
 
     @Override
     protected void doFilterInternal( @Nonnull HttpServletRequest request,
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String userName=jwtService.extractUserName(token);
 
         if (userName !=null && SecurityContextHolder.getContext().getAuthentication() ==null){
-            UserDetails userDetails=userService.loadUserByUsername(userName);
+            UserDetails userDetails=authenticationService.loadUserByUsername(userName);
            if (jwtService.isValid(token,userDetails)){
                UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(
                        userDetails,null,userDetails.getAuthorities()
