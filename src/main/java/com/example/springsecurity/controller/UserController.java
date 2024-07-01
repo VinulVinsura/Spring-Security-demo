@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.swing.plaf.PanelUI;
 
 @RestController
-@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -29,4 +28,6 @@ public class UserController {
     public ResponseEntity<AuthenticationResponce> login(@RequestBody UserDto userDto){
         return ResponseEntity.ok(userService.authenticate(userDto));
     }
+
+
 }
