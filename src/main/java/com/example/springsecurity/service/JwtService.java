@@ -21,6 +21,8 @@ public class JwtService {
         String token= Jwts.
                 builder()
                 .subject(user.getUsername())
+                .claim("firstName",user.getFirstName())
+                .claim("LastName",user.getLastName())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 60*60*24*1000))
                 .signWith(getSignKey())

@@ -1,6 +1,7 @@
 package com.example.springsecurity.controller;
 
 import com.example.springsecurity.dto.AuthenticationResponce;
+import com.example.springsecurity.dto.LoginDto;
 import com.example.springsecurity.dto.UserDto;
 import com.example.springsecurity.service.UserService;
 
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponce> login(@RequestBody UserDto userDto){
-        return ResponseEntity.ok(userService.authenticate(userDto));
+    public ResponseEntity<AuthenticationResponce> login(@RequestBody LoginDto loginDto){
+        return ResponseEntity.ok(userService.authenticate(loginDto));
     }
 
 

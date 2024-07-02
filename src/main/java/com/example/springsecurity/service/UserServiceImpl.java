@@ -1,6 +1,7 @@
 package com.example.springsecurity.service;
 
 import com.example.springsecurity.dto.AuthenticationResponce;
+import com.example.springsecurity.dto.LoginDto;
 import com.example.springsecurity.dto.UserDto;
 import com.example.springsecurity.entity.User;
 import com.example.springsecurity.repository.UserRepo;
@@ -33,14 +34,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public AuthenticationResponce authenticate(UserDto userDto){
+    public AuthenticationResponce authenticate(LoginDto loginDto){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        userDto.getUsername(),
-                        userDto.getPassword()
+                        loginDto.getUsername(),
+                        loginDto.getPassword()
                 )
         );
-        User user = userRepo.findByUsername(userDto.getUsername()).orElseThrow();
+        User user = userRepo.findByUsername(loginDto.getUsername()).orElseThrow();
         String toke = jwtService.generateToke(user);
         return new AuthenticationResponce(toke);
 
